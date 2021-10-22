@@ -32,11 +32,11 @@ function Chats() {
     socket.on('new message', message => {
       dispatch(addMessage(message))
     })
-  }, [])
+  }, [dispatch])
 
   useEffect(() => {
     dispatch(fetchMessages(chatId))
-  }, [chatId])
+  }, [chatId, dispatch])
 
   return (
     <div className="Chats">
