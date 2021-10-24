@@ -1,13 +1,15 @@
 import { useSelector } from 'react-redux'
+import { useAuth0 } from '@auth0/auth0-react'
 import { chatMessagesSelector } from '../redux/MessagesSlice'
 
 import MessageForm from './MessageForm'
 
 function ChatMessages({ chatId, onSubmit }) {
+  const { user } = useAuth0()
   const messages = useSelector(chatMessagesSelector(chatId))
 
   const handleMessageFormSubmit = ({ text }) => {
-    const message = { chatId, text, name: 'Иван' }
+    const message = { chatId, text, name: user.name }
     onSubmit(message)
   }
 

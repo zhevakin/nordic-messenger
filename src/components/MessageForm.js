@@ -2,7 +2,6 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { useForm } from 'react-hook-form'
 
-
 function MessageForm({ onFormSubmit }) {
   const { register, handleSubmit, getValues, setValue, formState } = useForm({
     mode: 'onChange',
@@ -18,6 +17,13 @@ function MessageForm({ onFormSubmit }) {
     setValue('text', `${text}😅`)
   }
 
+  const handleKeyPress = (event) => {
+    if (event.key === 'Enter') {
+      console.log(event.key)
+      handleSubmit(onSubmit)()
+    }
+  }
+
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <div className="mb-2">
@@ -27,6 +33,7 @@ function MessageForm({ onFormSubmit }) {
             rows="5"
             placeholder="Ваше сообщение"
             {...register('text', { required: true })}
+            onKeyPress={handleKeyPress}
           />
       </div>
       <button className="btn btn-primary" type="submit" disabled={!formState.isValid}>Отправить</button>
